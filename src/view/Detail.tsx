@@ -2,13 +2,36 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { IDetail } from '../type/allTypes';
 import { getDetail } from '../atom/api';
+import styled from "styled-components";
+const RowStyle = styled.div`
+  max-width: 1400px;
+  width: 100%;
+  margin:0 auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
+`
+const EachPartStyle = styled.div`
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  .attr{  font-size: 1rem;}
+`
+const TitleStyle = styled.span`
+  font-size: 1rem;
+  margin-right: 0.5rem;
+`
 const Detail = () => {
   const { id } = useParams();
   const num = id!.split(':')[0];
+  
   const { data: detailDB, isLoading } = useQuery<IDetail>(
     "getDetail",
-    () => getDetail(num)
+    () => getDetail(num), {enabled: !!num}
   );
 
   if (isLoading) {
@@ -16,51 +39,51 @@ const Detail = () => {
   }
 
   return (
-    <div>
+    <RowStyle>
       {detailDB?.name && (
-        <div key={`${detailDB?.name}`}>
-          <span>Monster</span>
+        <EachPartStyle className={`eachPart`} key={`${detailDB?.name}`}>
+          <TitleStyle className={`title`}>Monster</TitleStyle>
           <br />
-          {detailDB?.name}
-        </div>
+          <span className="att">{detailDB?.name}</span>
+        </EachPartStyle>
       )}
       {detailDB?.types && (
-        <div key={`${detailDB?.types}`}>
-          <span>Types</span>
+        <EachPartStyle className={`eachPart`} key={`${detailDB?.types}`}>
+          <TitleStyle className={`title`}>Types</TitleStyle>
           <br />
           {detailDB?.types.map((item, idx) => (
-            <span key={`type_${idx}`} className={`type`}>
+            <span key={`type_${idx}`} className={`att type`}>
              {idx + 1} {item.type.name}
             </span>
           ))}
-        </div>
+        </EachPartStyle>
       )}
       {detailDB?.height && (
-        <div key={`${detailDB?.height}`}>
-          <span>Height</span>
+        <EachPartStyle className={`eachPart`} key={`${detailDB?.height}`}>
+          <TitleStyle className={`title`}>Height</TitleStyle>
           <br />
-          {detailDB?.height}
-        </div>
+          <span className="att">{detailDB?.height}</span>
+        </EachPartStyle>
       )}
       {detailDB?.weight && (
-        <div key={`${detailDB?.weight}`}>
-          <span>Weight</span>
+        <EachPartStyle className={`eachPart`} key={`${detailDB?.weight}`}>
+          <TitleStyle className={`title`}>Weight</TitleStyle>
           <br />
-          {detailDB?.weight}
-        </div>
+          <span className="att">{detailDB?.weight}</span>
+        </EachPartStyle>
       )}
       {detailDB?.abilities && detailDB.abilities.length > 0 && (
-        <div>
-          <span>Abilities</span>
+        <EachPartStyle className={`eachPart`}>
+          <TitleStyle className={`title`}>Abilities</TitleStyle>
           <br />
           {detailDB.abilities.map((item, idx) => (
-            <div key={`${idx}_${item.ability}`}>
+            <span key={`${idx}_${item.ability}`} className={`attr`}>
               {item.ability.name}
-            </div>
+            </span>
           ))}
-        </div>
+        </EachPartStyle>
       )}
-    </div>
+    </RowStyle>
   );
 };
 
