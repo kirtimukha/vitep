@@ -22,43 +22,46 @@ const UlStyle = styled.ul`
   gap: 1rem; 
   width:100%;
   li{
-    display:grid;
+    display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
     width:calc(20% - 0.8rem);
     padding: 1.25rem;
     border-radius: 0.625rem;
     background: rgba(255,255,255, 0.15);
     img{height: 8rem;}
+    dl{width: 100%;}
     dl dt{text-transform: capitalize;margin-bottom:0.5rem;}
     dl dd{margin-bottom:0.65rem;
-      span{margin-left: 0.5rem; text-transform: capitalize}
+      span.att,
+      span.att + span.att{display: inline-block; padding: 0.0125rem 0.45rem; border-radius: 0.45rem; margin-left: 0.5rem; text-transform: capitalize;
+        background: cadetblue;
+      }
       .att:first-child{margin-left: 0;}
     }
+  }
     .numbering{
       display: inline-flex;
-      justify-self: flex-start;
+      justify-content: flex-start;
       align-items: center;
-      justify-content: center;
       font-size: 1.25rem;
       line-height: 100%;
       padding: 0.5rem 0.75rem;
       border-radius: 0.25rem;
       background: royalblue;
-      
     }
-  }
+  
 `
 const List = () => {
+
   const { data: listDB, isLoading, isError } = useQuery<IListProps>(
     "getLists",
-      getList
+    getList
   );
-  
-  
-  
+
+
   const [typesData, setTypesData] = useState<JSX.Element[] | null[]>([]);
   
   useEffect(() => {
@@ -121,20 +124,7 @@ const navigate = useNavigate();
                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.url.split ( '/' )[6] }.png`} alt={item.name}/>
                 <dl>
                   <dt>{ item.name }</dt>
-                  {/*<dd>
-                    {async () => {
-                      const result = await getDetail(index.toString());
-                      const types = result.types;
-                      return types.map((type, idx) => (
-                        <div key={`type_${idx}`}>
-                          <div>
-                            <span className="att">{type.type.name}</span>
-                          </div>
-                        </div>
-                      ));
-                    }}
-                    </dd>*/}
-                 <dd>{typesData[index]}</dd>
+                  {typesData[index]}
               </dl>
                 <button onClick={(e) => GoDetail(e, item.url.split('/')[6] ) }>Detail</button>
               </li>
