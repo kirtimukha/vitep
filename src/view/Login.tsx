@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const InputStyle = styled.input`
   margin-top: 0.125rem;
   background: white;
-  border: 1px solid rgb(223, 229, 239);
+  border: 1px solid rgb(204, 210, 220);
   border-radius: 0.4rem;
   padding: 0.75rem;
   outline: none;
@@ -54,15 +54,15 @@ const Login = () => {
             <input type="checkbox" id={`saveId`} {...register("saveId", {required: false})} />
             <label htmlFor="saveId">Save ID</label>
           </span>
-          <span className={`forgot-pw`}>
+          <span className={`forgot-pw`} style={{color:"royalblue"}}>
             Forgot Password?
           </span>
         </div>
         <div className="row text-center">
           <BtnLongStyle type="submit" onClick={()=> fnLogin()}>Sign in</BtnLongStyle>
         </div>
-        <div className="row text-center">
-          New to Poktmon? <Link to={`/signup`}>Create an account</Link>
+        <div className="row mt2 mb0 text-center new-member">
+          New to Poktmon?&nbsp;&nbsp;<Link to={`/signup`}>Create an account</Link>
         </div>
       </div>
     </form>

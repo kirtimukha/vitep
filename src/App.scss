@@ -71,3 +71,22 @@ a {
     margin: 1rem auto;
   }
 }
+
+input[type=checkbox]{
+  width: 1.188em;
+  height: 1.188em;
+  margin-top: 0.156em;
+  vertical-align: middle;
+  border-radius: 0.25em;
+  background-color: #fff;
+  border: 1px solid rgb(204, 210, 220);
+  -webkit-appearance: none;
+  &:checked{
+    background-color: royalblue;
+    border-color: royalblue;
+    color:#fff;
+  }
+}
+.new-member, input[type=checkbox] + label, .forgot-pw{font-size: 0.875rem; }
+.mt2{margin-top: 1.5rem !important;}
+.mb0{margin-bottom: 0 !important;}
