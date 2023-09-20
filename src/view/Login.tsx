@@ -5,7 +5,7 @@ const Login = () => {
     <>
       <input type="text" id="inputID" value={``} onChange={onChangeId}/>
       <input type="password"  id="inputPW" value={``} onChange={onChangePw}/>
-      <button>Login</button>
+      <button onClick={()=>{fnLogin(loginState)}>Login</button>
     </>
   );
 };
