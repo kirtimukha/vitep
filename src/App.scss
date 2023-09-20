@@ -39,3 +39,35 @@ a {
     animation: logo-spin infinite 20s linear;
   }
 }*/
+.between{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.column{
+  display:flex;
+  flex-direction: column;
+}
+
+.text-center{text-align: center; justify-content: center}
+.wrap-membership{
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 30px;
+  color: #1a1a1a;
+  box-shadow:rgba(0,0,0,0.2) 0px 0px 2px 0px,rgba(0,0,0,0.12) 0px 12px 24px -4px;
+  border-radius: 0.625rem;
+  word-wrap: break-word;
+  width: 33.33333333%;
+  max-width: 452px;
+  margin:0 auto;
+  background: white;
+  @media all and (max-width: 768px){
+    width: 66.66666667%;
+  }
+  .row{
+    display: flex;
+    margin: 1rem auto;
+  }
+}

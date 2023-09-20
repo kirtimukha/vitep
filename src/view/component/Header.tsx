@@ -4,14 +4,23 @@ import { loginAtom } from '../../type/allTypes';
 import { useRecoilState } from 'recoil';
 
 const HeaderStyle = styled.div`
+  display: flex;
   width: 100%;
   height: 60px;
   background: #1a1a1a;
-  color: ${props => props.theme.gray100}
-  
+  align-items: center;
+  justify-content:space-between;
+  color: #fff;
+  #logo{
+    margin-left:1rem;
+    height: 40px;
+  }
+  button{
+    margin-right:1rem;
+  }
 `
 const Header = () => {
-  /*const location = useLocation();*/
+  
   const [IsLogin, setIsLogin ]= useRecoilState(loginAtom);
   const navigate = useNavigate();
   const fnGotoLogin = () =>{
@@ -21,8 +30,12 @@ const Header = () => {
     setIsLogin(false)
     //로그아웃 후 그 자리에 그대로 머물게 한다
   }
+  const fnGoHome = () =>{
+    navigate('/list');
+  }
   return (
     <HeaderStyle className={`header`}>
+      <img src="src/assets/logo-hori.png" alt="Pokemon Logo" id="logo" onClick={fnGoHome}/>
       {IsLogin?
         <button onClick={()=> fnSignOut()}>Sign Out</button>
       :

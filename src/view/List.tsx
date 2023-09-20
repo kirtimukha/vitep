@@ -4,10 +4,17 @@ import { IListProps, IResult} from '../type/allTypes';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {useEffect, useState} from "react";
+import Header from './component/Header';
+
+const WrapperStyle = styled.div`
+  position:relative;
+  width: 100%;
+  min-height:100vh; 
+`
 const RowStyle = styled.div`
   max-width: 1400px;
   width: 100%;
-  margin:0 auto;
+  margin:3rem auto;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -115,23 +122,26 @@ const navigate = useNavigate();
   
   
   return (
-    <RowStyle className="row" id={`List`}>
-      <UlStyle className={'list-ul'}>
-        {!isLoading ? (
-            listDB?.results?.map((item: IResult, index: number) => (
-              <li key={`list_${index}`}>
-                <span className="numbering">{ item.url.split('/')[6] }</span>
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.url.split ( '/' )[6] }.png`} alt={item.name}/>
-                <dl>
-                  <dt>{ item.name }</dt>
-                  {typesData[index]}
-              </dl>
-                <button onClick={(e) => GoDetail(e, item.url.split('/')[6] ) }>Detail</button>
-              </li>
-            )))
-        : <li>Loading...</li> }
-      </UlStyle>
-    </RowStyle>
+    <WrapperStyle id="wrapper">
+      <Header />
+      <RowStyle className="row" id={`List`}>
+        <UlStyle className={'list-ul'}>
+          {!isLoading ? (
+              listDB?.results?.map((item: IResult, index: number) => (
+                <li key={`list_${index}`}>
+                  <span className="numbering">{ item.url.split('/')[6] }</span>
+                  <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.url.split ( '/' )[6] }.png`} alt={item.name}/>
+                  <dl>
+                    <dt>{ item.name }</dt>
+                    {typesData[index]}
+                </dl>
+                  <button onClick={(e) => GoDetail(e, item.url.split('/')[6] ) }>Detail</button>
+                </li>
+              )))
+          : <li>Loading...</li> }
+        </UlStyle>
+      </RowStyle>
+    </WrapperStyle>
   );
 };
 

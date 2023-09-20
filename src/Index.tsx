@@ -7,13 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { darkTheme } from '../Theme';
 import App from './App.tsx'
 import './index.css'
+import { RecoilRoot } from 'recoil';
 
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-
+<RecoilRoot>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
       <ThemeProvider theme={darkTheme}>
@@ -22,5 +23,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </BrowserRouter>
       {/*<ReactQueryDevtools initialIsOpen={true} />*/}
     </QueryClientProvider>
+</RecoilRoot>
   </React.StrictMode>,
 )
