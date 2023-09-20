@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { loginAtom } from '../../type/allTypes';
-import { useRecoilState } from 'recoil';
+import { LoginAtom} from '../../type/allTypes';
+import { useRecoilState} from 'recoil';
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -17,17 +17,30 @@ const HeaderStyle = styled.div`
   }
   button{
     margin-right:1rem;
+    outline: none;
+    -webkit-appearance: none;
+    &:hover{border: 1px solid transparent; color: royalblue}
+  }
+`
+const SignOutStyle = styled.div`
+  display:inline-flex;
+  align-items: center;
+  span{
+    display:inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+  em{display: inline-block; margin-left: 0.25rem; color:#7c9af2; line-height:100%; font-style: normal; vertical-align: middle}
   }
 `
 const Header = () => {
-  
-  const [IsLogin, setIsLogin ]= useRecoilState(loginAtom);
+  const [Data, setData ]= useRecoilState(LoginAtom);
+  console.log(Data.userId, "<== userId")
   const navigate = useNavigate();
   const fnGotoLogin = () =>{
     navigate('/login');
   }
   const fnSignOut = ()=>{
-    setIsLogin(false)
+    setData( { userId: '', userPw: '', saveId: false })
     //로그아웃 후 그 자리에 그대로 머물게 한다
   }
   const fnGoHome = () =>{
@@ -35,9 +48,12 @@ const Header = () => {
   }
   return (
     <HeaderStyle className={`header`}>
-      <img src="src/assets/logo-hori.png" alt="Pokemon Logo" id="logo" onClick={fnGoHome}/>
-      {IsLogin?
-        <button onClick={()=> fnSignOut()}>Sign Out</button>
+      <img src="/src/assets/logo-hori.png" alt="Pokemon Logo" id="logo" onClick={fnGoHome}/>
+      {Data.userId?
+        <SignOutStyle className={`signout`}>
+          <span>Welcome! <em>{Data?.userId}</em></span>
+          <button onClick={()=> fnSignOut()}>Sign Out</button>
+        </SignOutStyle>
       :
         <button onClick={()=>fnGotoLogin()}>Sign In</button>
       }

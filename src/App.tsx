@@ -1,5 +1,5 @@
-import { Route, Routes} from "react-router-dom";
-import { lazy } from "react";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy } from "react";
 
 import './App.scss'
 
@@ -11,11 +11,13 @@ const Login = lazy(() => import("./view/Login"));
 function App() {
 
   return (
+    <BrowserRouter>
     <Routes>
-      <Route path={"/"} element={<List />} />
-      <Route path={`/detail/:id`} element={<Detail />} />
-      <Route path={`/login`} element={<Login />} />
+      <Route path={"/"} element={<Suspense fallback={<div>Loading...</div>}> <List /></Suspense>} />
+      <Route path={`/detail/:id`} element={<Suspense fallback={<div>Loading...</div>}> <Detail /></Suspense>} />
+      <Route path={`/login`} element={<Suspense fallback={<div>Loading...</div>}> <Login /></Suspense>} />
     </Routes>
+    </BrowserRouter>
 
   )
 }

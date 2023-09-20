@@ -7,6 +7,14 @@ export interface ILoginAuth{
   saveId?: boolean;
 }
 
+export const LoginAtom = atom<ILoginAuth>({
+  key: "loginAuthState",
+  default: {
+    userId : "",
+    userPw: "",
+    saveId: false
+  }
+})
 export const loginAtom = atom<boolean>({
   key: "loginState",
   default: false

@@ -70,6 +70,7 @@ a {
     display: flex;
     margin: 1rem auto;
   }
+  .message{margin-top:0.25rem;text-align:right; padding-left: 0.875rem;font-size: 0.75rem; color: indianred;}
 }
 
 input[type=checkbox]{
@@ -89,4 +90,5 @@ input[type=checkbox]{
 }
 .new-member, input[type=checkbox] + label, .forgot-pw{font-size: 0.875rem; }
 .mt2{margin-top: 1.5rem !important;}
+.mt3{margin-top: 3rem !important;}
 .mb0{margin-bottom: 0 !important;}

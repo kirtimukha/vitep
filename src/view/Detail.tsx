@@ -3,10 +3,19 @@ import { useQuery } from 'react-query';
 import { IDetail } from '../type/allTypes';
 import { getDetail } from '../api/api';
 import styled from "styled-components";
+import Header from './component/Header';
+
+const WrapperStyle = styled.div`
+  position:relative;
+  width: 100%;
+  min-height:100vh; 
+`
+
 const RowStyle = styled.div`
   max-width: 1400px;
   width: 100%;
   margin:0 auto;
+  padding-top: 3rem;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -21,8 +30,8 @@ const TblDetail = styled.table`
   border: 1px solid rgba(0,0,0,0.65);
   border-collapse: collapse;
   border-spacing: unset;
-  th{text-align: left; padding: 0.55rem 1rem;border: 1px solid rgba(0,0,0,0.65); background: rgba(0,0,0,0.45)}
-  td{text-align: left; padding: 0.55rem 1rem;border: 1px solid rgba(0,0,0,0.65);text-transform: capitalize;}
+  th{text-align: left; padding: 0.55rem 1rem; border: 1px solid rgba(0,0,0,0.65); background: rgba(0,0,0,0.45)}
+  td{text-align: left; padding: 0.55rem 1rem; border: 1px solid rgba(0,0,0,0.65); background: rgba(0,0,0,0.24); text-transform: capitalize;}
 `
 const ImgStyle = styled.img`
   height: 10rem;
@@ -48,11 +57,19 @@ const Detail = () => {
     () => getDetail(num), {enabled: !!num}
   );
 
+  const fnGoBack = () => {
+    history.go(-1)
+  }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
+
+    <WrapperStyle id="wrapper">
+      <Header />
+
     <RowStyle>
   
       {detailDB?.sprites.front_default && (
@@ -110,11 +127,14 @@ const Detail = () => {
        )}
         </tbody>
       </TblDetail>
-    
-      
-     
-    
+
+      <div className="row mt3">
+        <button onClick={()=> fnGoBack()}>
+          뒤로
+        </button>
+      </div>
     </RowStyle>
+    </WrapperStyle>
   );
 };
 
