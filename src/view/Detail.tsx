@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { IDetail } from '../type/allTypes';
-import { getDetail } from '../atom/api';
+import { getDetail } from '../api/api';
 import styled from "styled-components";
 const RowStyle = styled.div`
   max-width: 1400px;

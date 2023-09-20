@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import {getDetail, getList} from '../atom/api';
+import {getDetail, getList} from '../api/api';
 import { IListProps, IResult} from '../type/allTypes';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';

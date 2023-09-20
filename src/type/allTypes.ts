@@ -1,3 +1,17 @@
+import { atom } from 'recoil';
+
+export interface ILogin {
+  id: string,
+  pw: string
+}
+
+export const loginAtom = atom<boolean>({
+  key: "loginState",
+  default: false
+})
+
+
+
 
 
 export interface IResult {
