@@ -70,7 +70,7 @@ const List = () => {
 
 
   const [typesData, setTypesData] = useState<JSX.Element[] | null[]>([]);
-  
+  const [ search, setSearch ] = useState("");
   useEffect(() => {
     const fetchTypesData = async () => {
       const typesDataArray: JSX.Element[] = [];
@@ -117,20 +117,36 @@ const navigate = useNavigate();
     event.stopPropagation();
     navigate(`/detail/${parseInt(charNum)}`);
   };
-  /*const { data: detailDB, isLoading } = useQuery<IDetail>(
-    "getDetail",
-    () => getDetail(num), {enabled: !!num}
-  );*/
-  
-  
   
   return (
     <WrapperStyle id="wrapper">
       <Header />
+      <RowStyle className="row" id={`searchBar`}>
+          <label htmlFor="searchMonster">
+            <input type="text" id={`searchMonster`}
+                   onChange={(e) => setSearch(e.target.value)}
+                   placeholder="Search..."
+            />
+          </label>
+      </RowStyle>
       <RowStyle className="row" id={`List`}>
+
         <UlStyle className={'list-ul'}>
           {!isLoading ? (
-              listDB?.results?.map((item: IResult, index: number) => (
+           listDB?.results?.filter((result: IResult) =>
+            result.name.toString().includes(search.toLowerCase())).map((item, key) => (
+              <li key={`list_search_${key}`}>
+                    <span className="numbering">{ item.url.split('/')[6] }</span>
+                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.url.split ( '/' )[6] }.png`} alt={item.name}/>
+                    <dl>
+                      <dt>{ item.name }</dt>
+                      {typesData[key]}
+                    </dl>
+                    <button onClick={(e) => GoDetail(e, item.url.split('/')[6] ) }>Detail</button>
+                  </li>
+            )))     : <li>Loading...</li> }
+
+          {/*listDB?.results?.map((item: IResult, index: number) => (
                 <li key={`list_${index}`}>
                   <span className="numbering">{ item.url.split('/')[6] }</span>
                   <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.url.split ( '/' )[6] }.png`} alt={item.name}/>
@@ -140,8 +156,8 @@ const navigate = useNavigate();
                 </dl>
                   <button onClick={(e) => GoDetail(e, item.url.split('/')[6] ) }>Detail</button>
                 </li>
-              )))
-          : <li>Loading...</li> }
+              )))*/}
+
         </UlStyle>
       </RowStyle>
     </WrapperStyle>
