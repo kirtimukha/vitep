@@ -43,7 +43,7 @@ const Header = () => {
   const fnSignOut = ()=>{
     setData( { userId: '', userPw: '', saveId: false })
     localStorage.clear();
-    //로그아웃 후 그 자리에 그대로 머물게 한다
+    //로그아웃 후   ,그 자리에 그대로 머물게 한다
   }
   const fnGoHome = () =>{
     navigate('/list');
