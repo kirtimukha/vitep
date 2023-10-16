@@ -29,10 +29,11 @@ const Login = () => {
   const navigate = useNavigate();
   const setData = useSetRecoilState(LoginAtom);
 
-  const {register, handleSubmit, formState:{errors}, setError} = useForm<ILoginAuth>({mode: 'onBlur'});
+  const {register, handleSubmit, formState:{errors}} = useForm<ILoginAuth>({mode: 'onBlur'});
 
   const onSubmit = (data:ILoginAuth) => {
     setData(data);
+    localStorage.setItem("userId", data.userId)
     navigate('/');
   };
   return (

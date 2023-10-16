@@ -74,13 +74,15 @@ const List = () => {
   useEffect(() => {
     const fetchTypesData = async () => {
       const typesDataArray: JSX.Element[] = [];
-      
-      for (let index = 1; index < listDB!.results!.length; index++) {
-        const result = await getDetail(index.toString());
-        const types = result.types;
-        const typesElements = types.map((type, idx) => (
-           <span className="att"  key={`type_${idx}`}>{type.type.name}</span>
-      ));
+
+      if(listDB && listDB?.results){
+        for (let index = 1; index < listDB.results.length; index++) {
+          const result = await getDetail(index.toString());
+          const types = result.types;
+          const typesElements = types.map((type, idx) => (
+             <span className="att"  key={`type_${idx}`}>{type.type.name}</span>
+        ));
+
         typesDataArray.push(
           <dd key={`dd_${index}`}>
             {typesElements}
@@ -90,6 +92,7 @@ const List = () => {
       
       setTypesData(typesDataArray);
       console.log(typesData);
+      }
     };
     
     fetchTypesData();

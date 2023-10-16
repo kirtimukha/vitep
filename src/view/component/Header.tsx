@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { LoginAtom} from '../../type/allTypes';
 import { useRecoilState} from 'recoil';
+import { useEffect } from 'react';
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -34,24 +35,30 @@ const SignOutStyle = styled.div`
 `
 const Header = () => {
   const [Data, setData ]= useRecoilState(LoginAtom);
-  console.log(Data.userId, "<== userId")
+
   const navigate = useNavigate();
   const fnGotoLogin = () =>{
     navigate('/login');
   }
   const fnSignOut = ()=>{
     setData( { userId: '', userPw: '', saveId: false })
+    localStorage.clear();
     //로그아웃 후 그 자리에 그대로 머물게 한다
   }
   const fnGoHome = () =>{
     navigate('/list');
   }
+  const storageUserId = localStorage.getItem("userId") as string;
+  useEffect( () => {
+    localStorage.getItem("userId");
+  }, [ Data ] );
+
   return (
     <HeaderStyle className={`header`}>
       <img src="/src/assets/logo-hori.png" alt="Pokemon Logo" id="logo" onClick={fnGoHome}/>
-      {Data.userId?
+      {storageUserId?
         <SignOutStyle className={`signout`}>
-          <span>Welcome! <em>{Data?.userId}</em></span>
+          <span>Welcome! <em>{storageUserId}</em></span>
           <button onClick={()=> fnSignOut()}>Sign Out</button>
         </SignOutStyle>
       :

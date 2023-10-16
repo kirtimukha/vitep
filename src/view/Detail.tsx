@@ -74,8 +74,6 @@ const Detail = () => {
   
       {detailDB?.sprites.front_default && (
         <EachPartStyle className={`eachPart`} key={`Image_${detailDB?.name}`}>
-          {/* <TitleStyle className={`title`}>Sprites</TitleStyle>
-          <br />*/}
           <ImgStyle src={detailDB?.sprites.front_default} alt={`Image_${detailDB?.name}`}/>
         </EachPartStyle>
       )}
@@ -93,30 +91,30 @@ const Detail = () => {
            )}
 
        {detailDB?.types && (
-         <tr  key={`${detailDB?.types}`}>
+         <tr key={`${detailDB?.types}`}>
            <th>Types</th>
            <td>
              {detailDB?.types.map((item, idx) => (
-             <span className="att">{detailDB?.types.length === 1 ? "" : (idx + 1)} {item.type.name}</span>
+             <span key={`type_{idx}`} className="att">{detailDB?.types.length === 1 ? "" : (idx + 1)} {item.type.name}</span>
              ))}
              </td>
          </tr>
        )}
 
        {detailDB?.height && (
-         <tr key={`${detailDB?.height}`}>
+         <tr key={`height_${detailDB?.height}`}>
            <th>Height</th>
            <td><span className="att">{detailDB?.height}</span></td>
          </tr>
        )}
        {detailDB?.weight && (
-         <tr key={`${detailDB?.weight}`}>
+         <tr key={`weight_${detailDB?.weight}`}>
            <th>Weight</th>
            <td><span className="att">{detailDB?.weight}</span></td>
          </tr>
        )}
        {detailDB?.abilities && detailDB.abilities.length > 0 && (
-         <tr key={`${detailDB?.weight}`}>
+         <tr key={`abilities_${detailDB?.weight}`}>
            <th>Abilities</th>
            <td> {detailDB.abilities.map((item, idx) => (
              <span key={`${idx}_${item.ability}`} className={`attr`}>
