@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IListProps,IDetail } from '../type/allTypes';
 
 export const getList = () => {
-  return axios.get<IListProps>('https://pokeapi.co/api/v2/pokemon')
+  return axios.get<IListProps>('https://pokeapi.co/api/v2/pokemon?limit=1292')
   .then((res) => res.data)
   .catch(function (error) {
     // 오류 처리

@@ -95,7 +95,7 @@ const Detail = () => {
            <th>Types</th>
            <td>
              {detailDB?.types.map((item, idx) => (
-             <span key={`type_{idx}`} className="att">{detailDB?.types.length === 1 ? "" : (idx + 1)} {item.type.name}</span>
+             <span key={`type_detail_${idx}_${item.type.name}`} className={ `att ${ item.type.name }` }>{detailDB?.types.length === 1 ? "" : (idx + 1)} {item.type.name}</span>
              ))}
              </td>
          </tr>
@@ -125,7 +125,14 @@ const Detail = () => {
        )}
         </tbody>
       </TblDetail>
-
+      {/*"back_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
+      "back_female": null,
+      "back_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png",
+      "back_shiny_female": null,
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "front_female": null,
+      "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
+      "front_shiny_female": null*/}
       <div className="row mt3">
         <button onClick={()=> fnGoBack()}>
           뒤로

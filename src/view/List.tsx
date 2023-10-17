@@ -44,7 +44,7 @@ const UlStyle = styled.ul`
     dl dd{margin-bottom:0.65rem;
       span.att,
       span.att + span.att{display: inline-block; padding: 0.0125rem 0.45rem; border-radius: 0.45rem; margin-left: 0.5rem; text-transform: capitalize;
-        background: cadetblue;
+        /*background: cadetblue;*/
       }
       .att:first-child{margin-left: 0;}
     }
@@ -74,13 +74,14 @@ const List = () => {
   useEffect(() => {
     const fetchTypesData = async () => {
       const typesDataArray: JSX.Element[] = [];
-
+      const typesNameArr = [];
       if(listDB && listDB?.results){
-        for (let index = 1; index < listDB.results.length; index++) {
+        for (let index = 1; index < 1018 /*listDB.results.length*/; index++) {
           const result = await getDetail(index.toString());
           const types = result.types;
+
           const typesElements = types.map((type, idx) => (
-             <span className="att"  key={`type_${idx}`}>{type.type.name}</span>
+             <span className={`att ${type.type.name}`}  key={`type_${type.type.name}_${idx}`}>{type.type.name}</span>
         ));
 
         typesDataArray.push(
@@ -88,28 +89,30 @@ const List = () => {
             {typesElements}
           </dd>
         );
+          typesNameArr.push(types.map((type)=> type.type.name))
+          console.log(typesNameArr," <== NameArr")
       }
-      
+
       setTypesData(typesDataArray);
       console.log(typesData);
       }
     };
-    
+
     fetchTypesData();
   }, [isLoading]);
   
 const navigate = useNavigate();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="row">Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error occurred while fetching data</div>;
+    return <div className="row">Error occurred while fetching data</div>;
   }
 
   if (!listDB) {
-    return <div>Data is not available</div>;
+    return <div className="row">Data is not available</div>;
   }
 
   const GoDetail = (event: React.MouseEvent<HTMLButtonElement>, charNum: string) => {
