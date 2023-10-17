@@ -115,6 +115,27 @@ input[type=checkbox]{
 .ghost{background-color: #006691;}
 .steel{background-color: #365c70;}
 .dark{background-color: #1a1a1a}
+
+
+#searchBar{
+  width:100%;
+
+  .filterArea{
+    width:100%;
+    display: block;
+    label{margin-left: 10px;
+      &:first-child{margin-left:0;}
+    }
+  }
+
+  .searchArea{
+    width:100%;
+    display: block;
+    margin-top:0.75rem;
+
+    input{height: 34px; width: 180px;}
+  }
+}
 /*
 .dark{background-color:#;}
 .{background-color:#;}

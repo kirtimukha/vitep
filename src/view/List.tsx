@@ -59,7 +59,6 @@ const UlStyle = styled.ul`
       border-radius: 0.25rem;
       background: royalblue;
     }
-  
 `
 const List = () => {
 
@@ -71,36 +70,52 @@ const List = () => {
 
   const [typesData, setTypesData] = useState<JSX.Element[] | null[]>([]);
   const [ search, setSearch ] = useState("");
+  const [ typeName, setTypeName ] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchTypesData = async () => {
       const typesDataArray: JSX.Element[] = [];
       const typesNameArr = [];
       if(listDB && listDB?.results){
+
         for (let index = 1; index < 1018 /*listDB.results.length*/; index++) {
           const result = await getDetail(index.toString());
-          const types = result.types;
 
-          const typesElements = types.map((type, idx) => (
-             <span className={`att ${type.type.name}`}  key={`type_${type.type.name}_${idx}`}>{type.type.name}</span>
-        ));
+          if( result && result.types){
+            const types = result.types;
 
-        typesDataArray.push(
-          <dd key={`dd_${index}`}>
-            {typesElements}
-          </dd>
-        );
-          typesNameArr.push(types.map((type)=> type.type.name))
-          console.log(typesNameArr," <== NameArr")
-      }
+            const typesElements = types.map((type, idx) => (
+               <span className={`att ${type.type.name}`}  key={`type_${type.type.name}_${idx}`}>{type.type.name}</span>
 
-      setTypesData(typesDataArray);
-      console.log(typesData);
+            ));
+            typesDataArray.push(
+              <dd key={`dd_${index}`}>
+                {typesElements}
+              </dd>
+            );
+            for (let i = 0; i < types.length ; i++ ){
+                typesNameArr.push(types[i].type.name)
+            }
+         }
+        }
+        setTypeName(typesNameArr);
+        setTypesData(typesDataArray);
       }
     };
-
     fetchTypesData();
+    console.log(typeName, "<==typeName")
   }, [isLoading]);
-  
+
+  // 모든 종류의 타입 얻기: 총 18개
+  const dupArr = typeName;
+  const uniqueArr:string[] = [];
+  dupArr.forEach( (el) =>  {
+    if(!uniqueArr.includes(el)){
+      uniqueArr.push(el)
+    }
+  })
+
+
 const navigate = useNavigate();
 
   if (isLoading) {
@@ -125,7 +140,11 @@ const navigate = useNavigate();
     <WrapperStyle id="wrapper">
       <Header />
       <RowStyle className="row" id={`searchBar`}>
-          <label htmlFor="searchMonster">
+
+          <span className={`filterArea`}>
+            { uniqueArr.map( el=> <label><input type="checkbox" className={`typeCheck ${el}`} />&nbsp;{el}</label>) }
+          </span>
+          <label className="searchArea" htmlFor="searchMonster">
             <input type="text" id={`searchMonster`}
                    onChange={(e) => setSearch(e.target.value)}
                    placeholder="Search..."
